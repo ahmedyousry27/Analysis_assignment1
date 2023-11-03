@@ -3,6 +3,7 @@ import time
 
 import numpy as np
 from matplotlib import pyplot as plt
+from numpy.random import randint
 
 
 def iterative_Method_powerNumber(a,n):
@@ -46,7 +47,7 @@ def graph():
     plt.xscale('log')
     plt.xlabel('n')
     plt.ylabel('Time (seconds)')
-    plt.title('Power Number')
+    plt.title('Powering a Number')
     plt.legend()
     plt.show()
 
@@ -100,6 +101,9 @@ def mergeSort(arr, l, r):
         mergeSort(arr, l, m)
         mergeSort(arr, m + 1, r)
         merge(arr, l, m, r)
+
+
+
 def binary_search(arr, low, high, target):
     while low <= high:
         mid = (low + high) // 2
@@ -121,44 +125,38 @@ def find_pairs_with_sum(arr, target):
     return pairs
 
 def measure_running_time():
-    input_sizes = np.linspace(1, 10**6, 10, dtype=np.longlong)
+    array_length=[10,100,500,1000,5000,10000,50000,100000,500000,1000000]
     execution_times = []
 
-    for n in input_sizes:
-        arr = [random.randint(1, 100) for _ in range(n)]  # Generating an array of random numbers
-        start_time = time.time()  # Record start time
-        find_pairs_with_sum(arr, target=10)  # Adjust the target sum as needed
-        end_time = time.time()  # Record end time
-        execution_times.append(end_time - start_time)  # Calculate execution time
+    for n in array_length:
+        arr = randint(1,30,n)
+        start_time = time.time()
+        find_pairs_with_sum(arr, target=15)
+        end_time = time.time()
+        execution_times.append(end_time - start_time)
 
-    return input_sizes, execution_times
+
+    plt.plot(array_length, execution_times, marker='o')
+    plt.xscale('log')
+    plt.yscale('log')
+    plt.xlabel('Input Size (n)')
+    plt.ylabel('Execution Time (seconds)')
+    plt.title('find_pairs_with_sum')
+    plt.grid(True)
+    plt.show()
 
 
 
 
 if __name__ == '__main__':
+    S = [8, 5, 10, 15, 9, 1, 2, 9]
+    target = 10
+    print(find_pairs_with_sum(S, target))
 
-    input_sizes, execution_times = measure_running_time()
 
 
-    n = input_sizes
-    n_squared=  np.square(input_sizes,dtype=np.longlong)
 
-    plt.plot(input_sizes, n, label='n', color='red')
-    plt.plot(input_sizes, n_squared, label='n_squared', color='green')
 
-    plt.xlabel('n values')
-    plt.ylabel('Values')
-    plt.title('Comparison of n, n_squared')
-    plt.legend()
 
-    plt.plot(input_sizes, execution_times, marker='o')
-    plt.xscale('log')
-    plt.yscale('log')  #
-    plt.xlabel('Input Size (n)')
-    plt.ylabel('Execution Time (seconds)')
-    plt.title('Scalability Analysis with Random Numbers')
-    plt.grid(True)
-    plt.show()
 
 
